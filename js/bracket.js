@@ -1,10 +1,17 @@
+var dataSet = JSON.parse(data)
+for(i=0; i<dataSet.length; i++){
+  dataSet[i]['ngames'] = 0;
+  dataSet[i]['projection'] = 0;
+}
+
+
 function pick_winner(elem){
   // id will be <round>_<game><top/bottom>
   var round = parseInt(elem.id.split("_")[0]);
   var game = parseInt(elem.id.split("_")[1]);
 
-  console.log(round);
-  console.log(game);
+  //console.log(round);
+  //console.log(game);
 
   if (round>5){
     return;
@@ -20,15 +27,106 @@ function pick_winner(elem){
 
   var id_to_update = (round+1)+'_'+parseInt(game/2)+'_'+top_bottom;
 
-  console.log(id_to_update);
+  //console.log(id_to_update);
 
   var div = document.getElementById(id_to_update);
   div.innerHTML = elem.textContent
 
-  get_ngames_for_each_team();
+  ngames_by_team = get_ngames_for_each_team();
+  update_data_stats(ngames_by_team);
+  redraw_table()
+
 }
 
-var teams = ['Duke', 'Arizona', 'WKU'];
+function update_data_stats(ngames_by_team){
+  for(i=0; i<dataSet.length; i++){
+    var found_team = false;
+    for(var team in ngames_by_team){
+      if (dataSet[i]['team_name'] === team){
+        found_team = true;
+        dataSet[i]['ngames'] = ngames_by_team[team]
+        dataSet[i]['projection'] = (ngames_by_team[team] * parseFloat(dataSet[i]['PPG'])).toFixed(2)
+        break
+      }
+    }
+    if (found_team == false){
+      //console.log(dataSet[i]['team_name'])
+    }
+  }
+}
+
+function redraw_table(){
+  $('#example').dataTable().fnClearTable();
+  $('#example').dataTable().fnAddData(dataSet);
+}
+
+var teams = ['1 Virginia',
+             '16 UMBC',
+             '8 Creighton',
+             '9 Kansas State',
+             '5 Kentucky',
+             '12 Davidson',
+             '4 Arizona',
+             '13 Buffalo',
+             '6 Miami',
+             '11 Loyola-Chicago',
+             '3 Tennessee',
+             '14 Wright State',
+             '7 Nevada',
+             '10 Texas',
+             '2 Cincinnati',
+             '15 Georgia State',
+             // ---
+             '1 Xavier',
+             '16 TBD',
+             '8 Missouri',
+             '9 Florida State',
+             '5 Ohio State',
+             '12 South Dakota State',
+             '4 Gonzaga',
+             '13 UNC Greensboro',
+             '6 Houston',
+             '11 San Diego State',
+             '3 Michigan',
+             '14 Montana',
+             '7 Texas A&M',
+             '10 Providence',
+             '2 North Carolina',
+             '15 Lipscomb',
+             // ---
+             '1 Villanova',
+             '16 TBD',
+             '8 Virginia Tech',
+             '9 Alabama',
+             '5 West Virginia',
+             '12 Murray State',
+             '4 Wichita State',
+             '13 Marshall',
+             '6 Florida',
+             '11 TBD',
+             '3 Texas Tech',
+             '14 Stephen F. Austin',
+             '7 Arkansas',
+             '10 Butler',
+             '2 Purdue',
+             '15 CS Fullerton',
+             // ---
+             '1 Kansas',
+             '16 Pennsylvania',
+             '8 Seton Hall',
+             '9 NC State',
+             '5 Clemson',
+             '12 New Mexico State',
+             '4 Auburn',
+             '13 Charleston',
+             '6 TCU',
+             '11 TBD',
+             '3 Michigan State',
+             '14 Bucknell',
+             '7 Rhode Island',
+             '10 Oklahoma',
+             '2 Duke',
+             '15 Iona']
 var ngames_by_team = {};
 
 document.addEventListener("DOMContentLoaded", load_tourney());
@@ -91,6 +189,8 @@ function get_ngames_for_each_team(){
       idbottom = iround+'_'+igame+'_bottom';
       bottomteam = document.getElementById(idbottom).textContent.trim();
       if(topteam.length>1){
+        // strip rank
+        topteam = topteam.split(" ").slice(1).join(" ")
         if (topteam in ngames_by_team){
           ngames_by_team[topteam] += 1;
         }
@@ -99,6 +199,8 @@ function get_ngames_for_each_team(){
         }
       }
       if(bottomteam.length>1){
+        // strip Rank
+        bottomteam = bottomteam.split(" ").slice(1).join(" ");
         if (bottomteam in ngames_by_team){
           ngames_by_team[bottomteam] += 1;
         }
@@ -110,5 +212,30 @@ function get_ngames_for_each_team(){
 
     }
   }
-  console.log(ngames_by_team);
+  //console.log(ngames_by_team);
+  return ngames_by_team;
 }
+
+
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        data: dataSet,
+        columns: [
+            { data : 'Player' , title : 'Player'},
+            { data : 'team_name', title : 'Team'},
+            { data : 'team_rank' , title : 'Rank'},
+            { data : 'PPG' , title : 'PPG'},
+            { data : 'ngames', title : '# Games'},
+            { data : 'projection', title : 'Projection'},
+        ]
+    } );
+
+    var buttons = new $.fn.dataTable.Buttons(table, {
+         buttons: [
+           'copyHtml5',
+           'excelHtml5',
+           'csvHtml5',
+           'pdfHtml5'
+        ]
+    }).container().appendTo($('#buttons'));
+} );
