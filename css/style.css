@@ -210,6 +210,20 @@ body {
   margin: 4.5em 0;
 }
 
+a:link {
+  color: white;
+}
+a:visited {
+  color: white;
+}
+a:hover {
+  color: #5cca87;
+}
+a:active {
+  color: #a0a6a8;
+}
+a {text-decoration: none; }
+
 @-webkit-keyframes pulse {
   0% {
     -webkit-transform: scale(1);
