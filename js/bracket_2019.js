@@ -229,6 +229,7 @@ $(document).ready(function() {
             { data : 'projection', title : 'Projection'},
         ]
     } );
+    table.order([ 5, "desc" ]).draw()
 
     var buttons = new $.fn.dataTable.Buttons(table, {
          buttons: [
