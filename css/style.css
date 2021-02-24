@@ -86,6 +86,19 @@ body {
   -moz-flex-direction: row;
   flex-direction: row;
 }
+.splitff {
+  display: block;
+  float: left;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  flex-direction: row;
+}
 .champion {
   float: left;
   display: block;
@@ -120,6 +133,9 @@ body {
 }
 .split-one .round {
   margin: 0 2.5% 0 0;
+}
+.split-ff .round {
+  margin: 0 8% 0 0;
 }
 .split-two .round {
   margin: 0 0 0 2.5%;
