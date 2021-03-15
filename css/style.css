@@ -69,6 +69,13 @@ body {
   -webkit-flex-direction: row;
   flex-direction: row;
 }
+.statsconfig {
+  color:#5cca87;
+  padding: 40px 40px 40px 40px;
+}
+input[type=number]{
+  width: 80px;
+} 
 .statstable {
   background-color: #ffffff;
   padding: 40px 40px 40px 40px;
@@ -94,10 +101,14 @@ body {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  width: 100%;
+  width: 75%;
+  margin: auto;
   -webkit-flex-direction: row;
   -moz-flex-direction: row;
   flex-direction: row;
+}
+.hidden {
+  display: none;
 }
 .champion {
   float: left;
@@ -135,7 +146,7 @@ body {
   margin: 0 2.5% 0 0;
 }
 .split-ff .round {
-  margin: 0 8% 0 0;
+  margin: 0 3% 0 3%;
 }
 .split-two .round {
   margin: 0 0 0 2.5%;
