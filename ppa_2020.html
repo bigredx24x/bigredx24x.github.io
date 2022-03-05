@@ -1,0 +1,134 @@
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115654417-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-115654417-1');
+</script>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script|Herr+Von+Muellerhoff' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Istok+Web|Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+  <link href='https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css' rel='stylesheet' type='text/css'>
+  <link href='css/style.css' rel='stylesheet' type='text/css'>
+  <title>Player Pool Assistant</title>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="hero-wrap">
+      <p class="intro" id="intro"></p>
+      <h1 id="headline">Player Pool Assistant</h1>
+      <p class="year"><i class="fa fa-star"></i> 2020 <i class="fa fa-star"></i></p>
+      <p>1) Fill out bracket. 2) Look at projection table. 3) Win your draft.</p>
+      <p>For future releases of additional Player Pool resources, submit your e-mail:</p>
+      <p><form method="POST" action="https://formspree.io/aj.go.bucks@gmail.com">
+      <input type="email" name="email" placeholder="Your email">
+      <button type="submit">Send</button>
+      <p>Updated xx/xx/2020</p>
+      <p><a href="https://docs.google.com/spreadsheets/d/1WivPTwreibdc_3AsIbcq988HWs_TKN-72i9ZhcB15lE/edit?usp=sharing" target="_blank" style="color: yellow">(Google Doc draft template)</a>
+</form></p>
+    </div>
+  </header>
+
+  <section id="bracket">
+    <div class="container">
+      <div class="split split-one">
+        <div class="round round-one current" id="r1left">
+          <div class="round-details">Round 2<br/><span class="date"></span></div>
+        </div>
+        <div class="round round-two" id="r2left">
+          <div class="round-details">Round 3<br/><span class="date"></span></div>
+        </div>
+        <div class="round round-three" id="r3left">
+          <div class="round-details">Sweet Sixteen<br/><span class="date"></span></div>
+        </div>
+        <div class="round round-four" id="r4left">
+          <div class="round-details">Elite Eight<br/><span class="date"></span></div>
+        </div>
+        <!-- END ROUND THREE -->
+      </div>
+
+      <div class="champion">
+        <div class="semis-l">
+          <div class="round-details">E/W Seminfinal <br/><span class="date"></span></div>
+          <ul class="matchup championship" id="5_0">
+            <li class="team team-top" id="5_0_top" onmousedown="pick_winner(this)">&nbsp;<span class="vote-count">&nbsp;</span></li>
+            <li class="team team-bottom" id="5_0_bottom" onmousedown="pick_winner(this)">&nbsp;<span class="vote-count">&nbsp;</span></li>
+          </ul>
+        </div>
+        <div class="final">
+          <i class="fa fa-trophy"></i>
+          <div class="round-details">Final <br/><span class="date"></span></div>
+          <ul class="matchup championship" id="6_0">
+            <li class="team team-top" id="6_0_top">&nbsp;<span class="vote-count">&nbsp;</span></li>
+            <li class="team team-bottom" id="6_0_bottom">&nbsp;<span class="vote-count">&nbsp;</span></li>
+          </ul>
+        </div>
+        <div class="semis-r">
+          <div class="round-details">S/MW Semifinal <br/><span class="date"></span></div>
+          <ul class="matchup championship" id="5_1">
+            <li class="team team-top" id="5_1_top" onmousedown="pick_winner(this)">&nbsp;<span class="vote-count">&nbsp;</span></li>
+            <li class="team team-bottom" id="5_1_bottom" onmousedown="pick_winner(this)">&nbsp;<span class="vote-count">&nbsp;</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="split split-two">
+        <div class="round round-four" id="r4right">
+          <div class="round-details">Elite Eight<br/><span class="date"></span></div>
+        </div>
+        <div class="round round-three" id="r3right">
+          <div class="round-details">Sweet Sixteen<br/><span class="date"></span></div>
+        </div>
+        <div class="round round-two" id="r2right">
+          <div class="round-details">Round 3<br/><span class="date"></span></div>
+        </div>
+        <div class="round round-one current" id="r1right">
+          <div class="round-details">Round 2<br/><span class="date"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+
+      <div class="statstable">
+      <div id="buttons"></div>
+      <table id="example" class="display" width="100%"></table>
+    </div>
+
+  </section>
+
+  <section class="share">
+    <div class="share-wrap">
+      <a class="share-icon" href="https://twitter.com/bigredx24x"><i class="fa fa-twitter"></i></a>
+    </div>
+  </section>
+
+<!-- needed for datatables -->
+<script type="text/javascript" src='https://code.jquery.com/jquery-1.12.4.js'></script>
+<script type="text/javascript" src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js'></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="data/stats_2020.json"></script>
+<script type="text/javascript" src="js/bracket_2020.js"></script>
+
+</body>
